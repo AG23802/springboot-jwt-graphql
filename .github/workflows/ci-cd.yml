@@ -11,6 +11,8 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    outputs:
+      jar-path: ${{ steps.package.outputs.jar-path }}
 
     steps:
       - name: Checkout code
@@ -28,6 +30,17 @@ jobs:
       - name: Run tests
         run: mvn test
 
+      - name: Save build artifact
+        id: package
+        run: echo "jar-path=target/springboot-jwt-graphql-0.0.1-SNAPSHOT.jar" >> $GITHUB_OUTPUT
+        # This passes the path to the next job
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: springboot-jar
+          path: ${{ steps.package.outputs.jar-path }}
+
   docker-build:
     runs-on: ubuntu-latest
     needs: build-and-test
@@ -35,6 +48,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: springboot-jar
+          path: ./target
 
       - name: Log in to DockerHub
         uses: docker/login-action@v2
