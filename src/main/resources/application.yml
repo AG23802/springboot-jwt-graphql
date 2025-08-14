@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: springboot-jwt-graphql
+  graphql:
+    path: /graphql
+    graphiql:
+      enabled: true
+
+  datasource:
+    url: jdbc:postgresql://ep-divine-grass-a2mcujmz-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+    username: neondb_owner
+    password: npg_ewg7bfMkFW8C
+    driver-class-name: org.postgresql.Driver
+
+    # Hikari connection pool tuning
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      idle-timeout: 30000
+      connection-timeout: 30000
+      max-lifetime: 1800000
+
+  jpa:
+    hibernate:
+      # For production, consider "validate" instead of "update"
+      ddl-auto: update
+    show-sql: false        # set true if you want to debug queries
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: false
+
+jwt:
+  secretKey: dGhpcy1pcy1hLXNlY3JldC1rZXktZm9yLXZlcnktc2VjdXJlLWp3dC1hcHAtMjAyNQ==
+
+# Optional: logging configuration for Hibernate SQL
+logging:
+  level:
+    org.hibernate.SQL: WARN
+    org.hibernate.type.descriptor.sql.BasicBinder: WARN
