@@ -43,7 +43,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -t your-dockerhub-username/springboot-jwt-graphql:latest .
+        run: docker build -t rexhin/springboot-jwt-graphql:latest .
 
       - name: Push Docker image
-        run: docker push your-dockerhub-username/springboot-jwt-graphql:latest
+        run: docker push rexhin/springboot-jwt-graphql:latest
