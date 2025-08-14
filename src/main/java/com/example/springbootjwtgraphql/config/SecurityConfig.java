@@ -28,8 +28,7 @@ public class SecurityConfig {
             "/api/**",      // Example of a public login endpoint
             "/auth/login",      // Example of a public login endpoint
             "/graphql",         // Example of a public GraphQL endpoint
-            "/graphiql",         // Example of a public GraphiQL UI
-            "/test"         // Example of a public GraphiQL UI
+            "/graphiql"         // Example of a public GraphiQL UI
     };
 
     @Bean

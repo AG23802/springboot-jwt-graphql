@@ -1,3 +1,4 @@
+# ----- Types -----
 type City {
     id: ID
     name: String
@@ -12,28 +13,29 @@ type Country {
     cities: [City]
 }
 
+type TokenResponse {
+    token: String!
+}
+
+# ----- Input Types -----
 input CityRequest {
     name: String!
     code: String!
     countryId: Int!
 }
 
+# ----- Queries -----
+type Query {
+    cities: [City]
+    cityByCode(code: String): City
+    country(id: ID!): Country
+}
+
+# ----- Mutations -----
 type Mutation {
     createCity(cityRequest: CityRequest!): City
     login(username: String!, password: String!): TokenResponse!
-}
 
-#type Mutation {
-#    createCity(name: String!, code: String!, countryId: Int!): City
-#}
-type TokenResponse {
-    token: String!
+    # Alternative createCity mutation (commented out)
+    # createCity(name: String!, code: String!, countryId: Int!): City
 }
-
-type Query {
-    cities: [City]
-    country(id: ID!): Country
-    cityByCode(code: String): City
-}
-
-# You can also define mutations if needed
