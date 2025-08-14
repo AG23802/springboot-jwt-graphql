@@ -36,7 +36,7 @@ jobs:
         # This passes the path to the next job
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: springboot-jar
           path: ${{ steps.package.outputs.jar-path }}
