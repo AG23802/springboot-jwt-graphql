@@ -13,10 +13,6 @@ type Country {
     cities: [City]
 }
 
-type TokenResponse {
-    token: String!
-}
-
 # ----- Input Types -----
 input CityRequest {
     name: String!
@@ -34,7 +30,6 @@ type Query {
 # ----- Mutations -----
 type Mutation {
     createCity(cityRequest: CityRequest!): City
-    login(username: String!, password: String!): TokenResponse!
 
     # Alternative createCity mutation (commented out)
     # createCity(name: String!, code: String!, countryId: Int!): City

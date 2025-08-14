@@ -1,15 +1,13 @@
 package com.example.springbootjwtgraphql.application.services;
 
+import com.example.springbootjwtgraphql.domain.shared.dto.CityRequest;
+import com.example.springbootjwtgraphql.domain.entities.City;
+import com.example.springbootjwtgraphql.domain.entities.Country;
+import com.example.springbootjwtgraphql.domain.repositories.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import com.example.springbootjwtgraphql.domain.entities.City;
-import com.example.springbootjwtgraphql.domain.entities.Country;
 import com.example.springbootjwtgraphql.domain.repositories.CityRepository;
-import com.example.springbootjwtgraphql.domain.repositories.CountryRepository;
-import com.example.springbootjwtgraphql.domain.shared.dto.CityRequest;
-import com.example.springbootjwtgraphql.domain.shared.dto.CityResponse;
 
 import java.util.List;
 
@@ -41,20 +39,20 @@ public class CityService {
         return cityRepository.getByCode(cityCode);
     }
 
-    public CityResponse saveCity(CityRequest cityRequest) {
-        Country country = countryRepository.findById(cityRequest.countryId);
+public City saveCity(CityRequest cityRequest) {
+    // Fetch the country entity
+    Country country = countryRepository.findById((long) cityRequest.countryId)
+            .orElseThrow(() -> new RuntimeException("Country not found"));
 
-        City city = new City();
-        city.setName(cityRequest.name);
-        city.setCode(cityRequest.code);
-        city.setCountryId(country.getId());
+    // Create new city entity
+    City city = new City();
+    city.setName(cityRequest.name);
+    city.setCode(cityRequest.code);
+    city.setCountryId(country.getId());
 
-        City savedCity = cityRepository.save(city);
-
-        CityResponse response = new CityResponse(savedCity);
-        response.setCountry(country.getName());
-        return response;
-    }
+    // Save and return the city
+    return cityRepository.save(city);
+}
 
     public int getCount() {
         return cityRepository.getCountProcedure();

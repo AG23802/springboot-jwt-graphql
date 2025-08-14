@@ -25,9 +25,7 @@ public class SecurityConfig {
     private CorsConfigurationSource corsConfigurationSource;
 
     private static final String[] PUBLIC_ENDPOINTS = {
-            "/api/**",      // Example of a public login endpoint
             "/auth/login",      // Example of a public login endpoint
-            "/graphql",         // Example of a public GraphQL endpoint
             "/graphiql"         // Example of a public GraphiQL UI
     };
 
