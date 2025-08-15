@@ -34,8 +34,3 @@ type Mutation {
     # Alternative createCity mutation (commented out)
     # createCity(name: String!, code: String!, countryId: Int!): City
 }
-
-# ----- Subscriptions -----
-type Subscription {
-  cityAdded: City
-}

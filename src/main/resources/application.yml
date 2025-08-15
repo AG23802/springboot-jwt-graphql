@@ -32,6 +32,7 @@ spring:
 
 jwt:
   secretKey: dGhpcy1pcy1hLXNlY3JldC1rZXktZm9yLXZlcnktc2VjdXJlLWp3dC1hcHAtMjAyNQ==
+  refreshExpirationMs: 604800000  # 7 days in milliseconds
 
 # Optional: logging configuration for Hibernate SQL
 logging:

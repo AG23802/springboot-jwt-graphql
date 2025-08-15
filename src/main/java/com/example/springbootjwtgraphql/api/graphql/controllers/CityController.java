@@ -16,8 +16,6 @@ public class CityController {
 
     @Autowired
     private CityService cityService;
-    @Autowired
-    private CitySubscriptionController citySubscriptionController;
 
     @QueryMapping
 public List<City> cities(@Argument Integer page,
@@ -34,8 +32,6 @@ public List<City> cities(@Argument Integer page,
 
     @MutationMapping
     public City createCity(@Argument CityRequest cityRequest) {
-        City city = cityService.saveCity(cityRequest);
-        citySubscriptionController.publishCity(city);
-        return city;
+        return cityService.saveCity(cityRequest);
     }
 }

@@ -47,20 +47,20 @@ public class CityService {
         return cityRepository.getByCode(cityCode);
     }
 
-public City saveCity(CityRequest cityRequest) {
-    // Fetch the country entity
-    Country country = countryRepository.findById((long) cityRequest.countryId)
-            .orElseThrow(() -> new RuntimeException("Country not found"));
+    public City saveCity(CityRequest cityRequest) {
+        // Fetch the country entity
+        Country country = countryRepository.findById((long) cityRequest.countryId)
+                .orElseThrow(() -> new RuntimeException("Country not found"));
 
-    // Create new city entity
-    City city = new City();
-    city.setName(cityRequest.name);
-    city.setCode(cityRequest.code);
-    city.setCountryId(country.getId());
+        // Create new city entity
+        City city = new City();
+        city.setName(cityRequest.name);
+        city.setCode(cityRequest.code);
+        city.setCountryId(country.getId());
 
-    // Save and return the city
-    return cityRepository.save(city);
-}
+        // Save and return the city
+        return cityRepository.save(city);
+    }
 
     public int getCount() {
         return cityRepository.getCountProcedure();
