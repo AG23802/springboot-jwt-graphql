@@ -1,0 +1,8 @@
+spring:
+  graphql:
+    graphiql:
+      enabled: false  # maybe disable GraphiQL in prod
+
+jwt:
+  # can override prod-specific JWT key if needed
+  secretKey: dGhpcy1pcy1hLXNlY3JldC1rZXktZm9yLXZlcnktc2VjdXJlLWp3dC1hcHAtMjAyNQ==

@@ -1,11 +1,12 @@
 package com.example.springbootjwtgraphql.domain.repositories;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
+import org.springframework.data.domain.Page;
 import com.example.springbootjwtgraphql.domain.entities.City;
 
 import java.util.List;
@@ -30,4 +31,6 @@ public interface CityRepository extends JpaRepository<City, Long> {
 
     @Procedure(procedureName = "count_cities_proc")
     int getCountProcedure();
+
+    Page<City> findByNameContainingIgnoreCase(String name, Pageable pageable);
 }

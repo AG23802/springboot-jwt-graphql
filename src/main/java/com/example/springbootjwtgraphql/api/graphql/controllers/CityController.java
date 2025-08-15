@@ -16,11 +16,16 @@ public class CityController {
 
     @Autowired
     private CityService cityService;
+    @Autowired
+    private CitySubscriptionController citySubscriptionController;
 
     @QueryMapping
-    public List<City> cities() {
-        return cityService.getCities();
-    }
+public List<City> cities(@Argument Integer page,
+                         @Argument Integer size,
+                         @Argument String nameFilter) {
+
+    return cityService.getCities(page, size, nameFilter);
+}
 
     @QueryMapping(name = "cityByCode")
     public City getCity(@Argument("code") String code) {
@@ -29,6 +34,8 @@ public class CityController {
 
     @MutationMapping
     public City createCity(@Argument CityRequest cityRequest) {
-        return cityService.saveCity(cityRequest);
+        City city = cityService.saveCity(cityRequest);
+        citySubscriptionController.publishCity(city);
+        return city;
     }
 }

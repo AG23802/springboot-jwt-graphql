@@ -1,0 +1,8 @@
+spring:
+  graphql:
+    graphiql:
+      enabled: true
+
+jwt:
+  # can override dev-specific JWT key if needed
+  secretKey: dGhpcy1pcy1hLXNlY3JldC1rZXktZm9yLXZlcnktc2VjdXJlLWp3dC1hcHAtMjAyNQ==

@@ -22,7 +22,7 @@ input CityRequest {
 
 # ----- Queries -----
 type Query {
-    cities: [City]
+    cities(page: Int = 0, size: Int = 10, nameFilter: String): [City]
     cityByCode(code: String): City
     country(id: ID!): Country
 }
@@ -33,4 +33,9 @@ type Mutation {
 
     # Alternative createCity mutation (commented out)
     # createCity(name: String!, code: String!, countryId: Int!): City
+}
+
+# ----- Subscriptions -----
+type Subscription {
+  cityAdded: City
 }
