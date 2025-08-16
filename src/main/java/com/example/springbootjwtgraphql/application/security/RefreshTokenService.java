@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.UUID;
+import java.util.Optional;
 
 @Service
 public class RefreshTokenService {
@@ -20,8 +21,8 @@ public class RefreshTokenService {
     }
 
     public String createRefreshToken(String username) {
-        // Optional: delete old token
-        refreshTokenRepository.deleteByUsername(username);
+        // Find and delete any existing token for this user to ensure only one is active.
+        refreshTokenRepository.findByUsername(username).ifPresent(refreshTokenRepository::delete);
 
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setUsername(username);
@@ -32,15 +33,26 @@ public class RefreshTokenService {
         return refreshToken.getToken();
     }
 
-    public String validateRefreshToken(String token) {
+    public String validateAndRotateRefreshToken(String token) {
+        // Step 1: Find the token in the database. If not found, it's invalid.
         RefreshToken refreshToken = refreshTokenRepository.findByToken(token)
                 .orElseThrow(() -> new RuntimeException("Invalid refresh token"));
 
+        // Step 2: Check if the token has expired.
         if (refreshToken.getExpiryDate().isBefore(Instant.now())) {
-            refreshTokenRepository.delete(refreshToken);
+            refreshTokenRepository.delete(refreshToken); // Delete expired token
             throw new RuntimeException("Refresh token expired");
         }
 
+        // Step 3: Delete the old token to prevent reuse (crucial security step).
+        refreshTokenRepository.delete(refreshToken);
+
+        // Step 4: Return the username to generate a new access and refresh token.
         return refreshToken.getUsername();
+    }
+    
+    // Additional method to allow manual revocation (e.g., on logout)
+    public void deleteByUsername(String username) {
+        refreshTokenRepository.deleteByUsername(username);
     }
 }

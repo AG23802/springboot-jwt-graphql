@@ -3,6 +3,7 @@ package com.example.springbootjwtgraphql.api.graphql.controllers;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,7 +16,6 @@ import com.example.springbootjwtgraphql.api.graphql.dto.LoginRequest;
 import com.example.springbootjwtgraphql.application.security.JwtUtil;
 import com.example.springbootjwtgraphql.application.security.RefreshTokenService;
 
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 
 @RestController
@@ -26,7 +26,6 @@ public class AuthController {
     private AuthenticationManager authManager;
     @Autowired
     private RefreshTokenService refreshTokenService;
-
     @Autowired
     private JwtUtil jwtUtil;
 
@@ -43,27 +42,31 @@ public class AuthController {
         return ResponseEntity.ok(Map.of(
                 "accessToken", accessToken,
                 "refreshToken", refreshToken));
-
     }
 
     @PostMapping("/refresh")
     public ResponseEntity<?> refreshToken(@RequestBody(required = false) Map<String, String> request) {
         if (request == null || !request.containsKey("refreshToken")) {
-            return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(Map.of("error", "Missing refresh token"));
         }
 
         String refreshToken = request.get("refreshToken");
         String username;
         try {
-            username = refreshTokenService.validateRefreshToken(refreshToken);
+            username = refreshTokenService.validateAndRotateRefreshToken(refreshToken);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED)
-                    .body(Map.of("error", "Invalid refresh token"));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", "Invalid or expired refresh token"));
         }
 
+        // Generate a new access token and a new refresh token
         String newAccessToken = jwtUtil.generateToken(username);
-        return ResponseEntity.ok(Map.of("accessToken", newAccessToken));
+        String newRefreshToken = refreshTokenService.createRefreshToken(username);
+
+        return ResponseEntity.ok(Map.of(
+                "accessToken", newAccessToken,
+                "refreshToken", newRefreshToken));
     }
 
     @PostMapping("/test")
