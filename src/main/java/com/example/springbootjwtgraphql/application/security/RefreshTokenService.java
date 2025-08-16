@@ -1,4 +1,4 @@
-package com.example.springbootjwtgraphql.application.services;
+package com.example.springbootjwtgraphql.application.security;
 import com.example.springbootjwtgraphql.domain.repositories.RefreshTokenRepository;
 import com.example.springbootjwtgraphql.domain.entities.RefreshToken;
 import org.springframework.beans.factory.annotation.Value;
