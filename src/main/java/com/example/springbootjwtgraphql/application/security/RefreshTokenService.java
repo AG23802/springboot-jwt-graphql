@@ -1,4 +1,5 @@
 package com.example.springbootjwtgraphql.application.security;
+
 import com.example.springbootjwtgraphql.domain.repositories.RefreshTokenRepository;
 import com.example.springbootjwtgraphql.application.exceptions.RefreshTokenException;
 import com.example.springbootjwtgraphql.domain.entities.RefreshToken;
@@ -21,7 +22,8 @@ public class RefreshTokenService {
     }
 
     public String createRefreshToken(String username) {
-        // Find and delete any existing token for this user to ensure only one is active.
+        // Find and delete any existing token for this user to ensure only one is
+        // active.
         refreshTokenRepository.findByUsername(username).ifPresent(refreshTokenRepository::delete);
 
         RefreshToken refreshToken = new RefreshToken();
@@ -34,23 +36,27 @@ public class RefreshTokenService {
     }
 
     public String validateAndRotateRefreshToken(String token) {
+        if (token == null || token.isEmpty()) {
+            throw new RefreshTokenException("Missing refresh token");
+        }
+
         // Step 1: Find the token in the database. If not found, it's invalid.
         RefreshToken refreshToken = refreshTokenRepository.findByToken(token)
                 .orElseThrow(() -> new RefreshTokenException("Invalid refresh token"));
 
         // Step 2: Check if the token has expired.
         if (refreshToken.getExpiryDate().isBefore(Instant.now())) {
-            refreshTokenRepository.delete(refreshToken); // Delete expired token
+            refreshTokenRepository.delete(refreshToken);
             throw new RefreshTokenException("Refresh token expired");
         }
 
-        // Step 3: Delete the old token to prevent reuse (crucial security step).
+        // Step 3: Delete the old token to prevent reuse.
         refreshTokenRepository.delete(refreshToken);
 
         // Step 4: Return the username to generate a new access and refresh token.
         return refreshToken.getUsername();
     }
-    
+
     // Additional method to allow manual revocation (e.g., on logout)
     public void deleteByUsername(String username) {
         refreshTokenRepository.deleteByUsername(username);
