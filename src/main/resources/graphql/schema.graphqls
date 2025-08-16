@@ -13,6 +13,14 @@ type Country {
     cities: [City]
 }
 
+type CityPage {
+    content: [City]
+    totalElements: Int
+    totalPages: Int
+    size: Int
+    number: Int
+}
+
 # ----- Input Types -----
 input CityRequest {
     name: String!
@@ -22,7 +30,7 @@ input CityRequest {
 
 # ----- Queries -----
 type Query {
-    cities(page: Int = 0, size: Int = 10, nameFilter: String): [City]
+    cities(page: Int = 0, size: Int = 10, nameFilter: String): CityPage
     cityByCode(code: String): City
     country(id: ID!): Country
 }

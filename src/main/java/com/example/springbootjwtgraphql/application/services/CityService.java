@@ -4,10 +4,12 @@ import com.example.springbootjwtgraphql.domain.shared.dto.CityRequest;
 import com.example.springbootjwtgraphql.domain.entities.City;
 import com.example.springbootjwtgraphql.domain.entities.Country;
 import com.example.springbootjwtgraphql.domain.repositories.CountryRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.springbootjwtgraphql.domain.repositories.CityRepository;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
@@ -25,13 +27,13 @@ public class CityService {
         this.cityRepository = cityRepository;
     }
 
-    public List<City> getCities(int page, int size, String nameFilter) {
+    public Page<City> getCities(int page, int size, String nameFilter) {
         Pageable pageable = PageRequest.of(page, size);
 
         if (nameFilter != null && !nameFilter.isEmpty()) {
-            return cityRepository.findByNameContainingIgnoreCase(nameFilter, pageable).getContent();
+            return cityRepository.findByNameContainingIgnoreCase(nameFilter, pageable);
         } else {
-            return cityRepository.findAll(pageable).getContent();
+            return cityRepository.findAll(pageable);
         }
     }
 
