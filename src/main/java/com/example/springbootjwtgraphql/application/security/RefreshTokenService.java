@@ -1,5 +1,6 @@
 package com.example.springbootjwtgraphql.application.security;
 import com.example.springbootjwtgraphql.domain.repositories.RefreshTokenRepository;
+import com.example.springbootjwtgraphql.application.exceptions.RefreshTokenException;
 import com.example.springbootjwtgraphql.domain.entities.RefreshToken;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -35,12 +36,12 @@ public class RefreshTokenService {
     public String validateAndRotateRefreshToken(String token) {
         // Step 1: Find the token in the database. If not found, it's invalid.
         RefreshToken refreshToken = refreshTokenRepository.findByToken(token)
-                .orElseThrow(() -> new RuntimeException("Invalid refresh token"));
+                .orElseThrow(() -> new RefreshTokenException("Invalid refresh token"));
 
         // Step 2: Check if the token has expired.
         if (refreshToken.getExpiryDate().isBefore(Instant.now())) {
             refreshTokenRepository.delete(refreshToken); // Delete expired token
-            throw new RuntimeException("Refresh token expired");
+            throw new RefreshTokenException("Refresh token expired");
         }
 
         // Step 3: Delete the old token to prevent reuse (crucial security step).

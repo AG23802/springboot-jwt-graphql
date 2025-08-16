@@ -46,22 +46,12 @@ public class AuthController {
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<?> refreshToken(@RequestBody(required = false) Map<String, String> request) {
-        if (request == null || !request.containsKey("refreshToken")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of("error", "Missing refresh token"));
-        }
-
+    public ResponseEntity<?> refreshToken(@RequestBody Map<String, String> request) {
         String refreshToken = request.get("refreshToken");
-        String username;
-        try {
-            username = refreshTokenService.validateAndRotateRefreshToken(refreshToken);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of("error", "Invalid or expired refresh token"));
-        }
 
-        // Generate a new access token and a new refresh token
+        // The service now handles all validation and throws an exception on failure
+        String username = refreshTokenService.validateAndRotateRefreshToken(refreshToken);
+
         String newAccessToken = jwtUtil.generateToken(username);
         String newRefreshToken = refreshTokenService.createRefreshToken(username);
 
@@ -74,8 +64,6 @@ public class AuthController {
     public ResponseEntity<Map<String, String>> test(@RequestBody Map<String, String> request) {
         return ResponseEntity.ok(Map.of("test", "testå"));
     }
-
-
 
     @GetMapping("/test500")
     public ResponseEntity<String> test500() {
