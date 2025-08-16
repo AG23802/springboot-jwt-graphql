@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.UUID;
-import java.util.Optional;
 
 @Service
 public class RefreshTokenService {
