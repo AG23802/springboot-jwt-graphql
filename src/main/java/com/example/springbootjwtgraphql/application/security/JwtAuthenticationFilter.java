@@ -10,7 +10,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -34,6 +33,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         String path = request.getRequestURI();
 
+        // New Logic: Only apply the filter to the /graphql/** and /auth/** endpoints
+        if (!path.startsWith("/graphql") && !path.startsWith("/auth")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+        
+        // Existing Logic: Check if the request is for the /auth/** endpoint
         if (path.startsWith("/auth")) {
             filterChain.doFilter(request, response);
             return;

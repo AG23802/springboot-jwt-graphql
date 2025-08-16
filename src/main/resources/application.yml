@@ -32,8 +32,8 @@ spring:
 
 jwt:
   secretKey: dGhpcy1pcy1hLXNlY3JldC1rZXktZm9yLXZlcnktc2VjdXJlLWp3dC1hcHAtMjAyNQ==
-  # Access token expiration time in milliseconds (e.g., 15 minutes)
-  expiration: 30000
+  # Access token expiration time in milliseconds (e.g., 1 day)
+  expiration: 86400000 
   refreshExpirationMs: 604800000  # 7 days in milliseconds
 
 # Optional: logging configuration for Hibernate SQL

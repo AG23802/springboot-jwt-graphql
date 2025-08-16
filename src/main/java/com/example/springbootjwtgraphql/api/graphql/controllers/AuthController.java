@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,5 +73,14 @@ public class AuthController {
     @PostMapping("/test")
     public ResponseEntity<Map<String, String>> test(@RequestBody Map<String, String> request) {
         return ResponseEntity.ok(Map.of("test", "testå"));
+    }
+
+
+
+    @GetMapping("/test500")
+    public ResponseEntity<String> test500() {
+        // This will cause a NullPointerException, which is an unhandled exception.
+        // Spring Boot will catch it and return a 500 Internal Server Error by default.
+        throw new NullPointerException("This is a test 500 error.");
     }
 }
