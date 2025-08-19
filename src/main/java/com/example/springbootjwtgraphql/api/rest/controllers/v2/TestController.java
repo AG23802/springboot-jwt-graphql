@@ -1,4 +1,4 @@
-package com.example.springbootjwtgraphql.api.rest.controllers.v1;
+package com.example.springbootjwtgraphql.api.rest.controllers.v2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,10 +6,12 @@ import java.util.function.Function;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@RequestMapping("api/v2")
 @RestController
-public class XController {
+public class TestController {
     Function<Integer, Integer> square = (x) -> x * x;
 
     int add(int a, int b) {
