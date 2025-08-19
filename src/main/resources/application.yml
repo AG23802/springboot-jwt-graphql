@@ -1,4 +1,8 @@
 spring:
+  profiles:
+    active: dev
+  main:
+      banner-mode: "off"
   application:
     name: springboot-jwt-graphql
   graphql:
@@ -39,8 +43,9 @@ jwt:
 # Optional: logging configuration for Hibernate SQL
 logging:
   level:
-    org.hibernate.SQL: WARN
-    org.hibernate.type.descriptor.sql.BasicBinder: WARN
+    root: ERROR
+    com.example: INFO
+    org.springframework.security: WARN
 
 springdoc:
   api-docs:

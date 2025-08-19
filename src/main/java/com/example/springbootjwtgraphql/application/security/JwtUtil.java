@@ -4,6 +4,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.Claims;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -12,8 +13,12 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.function.Function;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Component
 public class JwtUtil {
+    private static final Logger logger = LoggerFactory.getLogger(JwtUtil.class);
 
     private final SecretKey key;
     private final long expiration;
@@ -26,6 +31,8 @@ public class JwtUtil {
     }
 
     public String generateToken(String username) {
+        logger.warn("Generating token for user {}", username);
+
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuedAt(new Date())
@@ -56,6 +63,7 @@ public class JwtUtil {
     }
 
     public boolean validateToken(String token) {
+        logger.debug("Validating token: {}", token);
         return !isTokenExpired(token);
     }
 

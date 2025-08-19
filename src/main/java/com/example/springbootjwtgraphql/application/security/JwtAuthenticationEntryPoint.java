@@ -16,14 +16,19 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
-                         AuthenticationException authException) throws IOException, ServletException {
-        
+                         AuthenticationException authException) throws IOException {
+
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
-        String graphqlError = "{ \"data\": null, \"errors\": [{ \"message\": \"" + authException.getMessage() +
-                "\", \"extensions\": {\"code\": \"UNAUTHENTICATED\"} }] }";
-        
-        response.getWriter().write(graphqlError);
+        // Simple check: if the path starts with /graphql, return GraphQL style
+        if (request.getRequestURI().startsWith("/graphql")) {
+            String graphqlError = "{ \"data\": null, \"errors\": [{ \"message\": \"" + authException.getMessage() +
+                    "\", \"extensions\": {\"code\": \"UNAUTHENTICATED\"} }] }";
+            response.getWriter().write(graphqlError);
+        } else {
+            // Standard REST JSON
+            response.getWriter().write("{\"error\": \"" + authException.getMessage() + "\"}");
+        }
     }
 }
