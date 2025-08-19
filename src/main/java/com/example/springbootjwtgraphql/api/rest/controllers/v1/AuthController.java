@@ -1,4 +1,4 @@
-package com.example.springbootjwtgraphql.api.graphql.controllers;
+package com.example.springbootjwtgraphql.api.rest.controllers.v1;
 
 import java.util.Map;
 
@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.springbootjwtgraphql.api.graphql.dto.LoginRequest;
+import com.example.springbootjwtgraphql.api.rest.dto.LoginRequest;
 import com.example.springbootjwtgraphql.application.security.JwtUtil;
 import com.example.springbootjwtgraphql.application.security.RefreshTokenService;
 
 import jakarta.transaction.Transactional;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("api/v1/auth")
 public class AuthController {
 
     @Autowired

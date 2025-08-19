@@ -1,8 +1,9 @@
 package com.example.springbootjwtgraphql.api.graphql.controllers;
 
 import com.example.springbootjwtgraphql.application.services.CityService;
+import com.example.springbootjwtgraphql.commons.CityRequest;
 import com.example.springbootjwtgraphql.domain.entities.City;
-import com.example.springbootjwtgraphql.domain.shared.dto.CityRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.graphql.data.method.annotation.Argument;

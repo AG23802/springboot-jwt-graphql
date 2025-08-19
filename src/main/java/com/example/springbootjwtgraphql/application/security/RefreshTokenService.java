@@ -11,7 +11,6 @@ import java.util.UUID;
 
 @Service
 public class RefreshTokenService {
-
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Value("${jwt.refreshExpirationMs}")

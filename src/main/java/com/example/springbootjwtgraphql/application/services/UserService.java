@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.springbootjwtgraphql.domain.entities.User;
-import com.example.springbootjwtgraphql.domain.repositories.user.UserRepository;
+import com.example.springbootjwtgraphql.domain.repositories.UserRepository;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.example.springbootjwtgraphql.domain.shared.dto;
+package com.example.springbootjwtgraphql.commons;
 
 public class CityRequest {
     public String name;

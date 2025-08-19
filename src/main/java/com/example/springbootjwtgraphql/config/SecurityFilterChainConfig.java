@@ -1,5 +1,6 @@
 package com.example.springbootjwtgraphql.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -13,13 +14,11 @@ import com.example.springbootjwtgraphql.application.security.JwtAuthenticationEn
 
 @Configuration
 public class SecurityFilterChainConfig {
-    private final JwtAuthenticationFilter jwtFilter;
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    @Autowired
+    private JwtAuthenticationFilter jwtFilter;
 
-    public SecurityFilterChainConfig(JwtAuthenticationFilter jwtFilter, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) {
-        this.jwtFilter = jwtFilter;
-        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
-    }
+    @Autowired
+    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Bean
     @Order(1)

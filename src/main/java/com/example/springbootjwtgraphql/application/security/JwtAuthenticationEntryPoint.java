@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+// Catches exceptions during security filter processing (before the controller).
 @Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 

@@ -1,4 +1,4 @@
-package com.example.springbootjwtgraphql.api.graphql.dto;
+package com.example.springbootjwtgraphql.api.rest.dto;
 
 public class LoginRequest {
     private String username;

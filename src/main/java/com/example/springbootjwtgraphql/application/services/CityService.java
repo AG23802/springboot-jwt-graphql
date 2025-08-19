@@ -1,6 +1,6 @@
 package com.example.springbootjwtgraphql.application.services;
 
-import com.example.springbootjwtgraphql.domain.shared.dto.CityRequest;
+import com.example.springbootjwtgraphql.commons.CityRequest;
 import com.example.springbootjwtgraphql.domain.entities.City;
 import com.example.springbootjwtgraphql.domain.entities.Country;
 import com.example.springbootjwtgraphql.domain.repositories.CountryRepository;
