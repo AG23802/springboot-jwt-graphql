@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.springbootjwtgraphql.api.rest.dto.LoginRequest;
+import com.example.springbootjwtgraphql.api.rest.dto.RefreshTokenRequest;
 import com.example.springbootjwtgraphql.application.security.JwtUtil;
 import com.example.springbootjwtgraphql.application.security.RefreshTokenService;
 
@@ -44,11 +45,8 @@ public class AuthController {
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<?> refreshToken(@RequestBody Map<String, String> request) {
-        String refreshToken = request.get("refreshToken");
-
-        // The service now handles all validation and throws an exception on failure
-        String username = refreshTokenService.validateAndRotateRefreshToken(refreshToken);
+    public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequest request) {
+        String username = refreshTokenService.validateAndRotateRefreshToken(request.getRefreshToken());
 
         String newAccessToken = jwtUtil.generateToken(username);
         String newRefreshToken = refreshTokenService.createRefreshToken(username);
