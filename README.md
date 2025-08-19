@@ -29,14 +29,13 @@ This project is the secure backend API for a full-stack application. It is built
 
 - **Docker Integration:** The entire application is containerized with **Docker**. This ensures a consistent environment across development, testing, and production, eliminating "works on my machine" issues. The Dockerfile simplifies the build and deployment process.
 - **CI/CD Pipeline:** A **GitHub Actions** workflow is included to automate the build, test, and containerization processes every time code is pushed. This demonstrates a professional approach to continuous integration and continuous delivery.
+- **Spring Profiles (dev & prod):** The project includes multiple **Spring Boot profiles** to cleanly separate development and production environments:
+  - `application-dev.yml` → Local development (debug logging, H2/Postgres, hot reload).
+  - `application-prod.yml` → Production-ready settings (PostgreSQL, optimizations, security).  
+  Activate a profile with:
+  ```bash
+  # Development mode
+  ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
 
----
-
-## Getting Started
-
-1. Clone the repository to your local machine.
-2. Set up a PostgreSQL database and update the database configuration in `src/main/resources/application.properties`.
-3. Build the project using your build tool (e.g., Maven or Gradle) to resolve all dependencies.
-4. Run the application. The API will be available on [http://localhost:8080](http://localhost:8080).
-
----
+  # Production mode
+  ./mvnw spring-boot:run -Dspring-boot.run.profiles=prod
