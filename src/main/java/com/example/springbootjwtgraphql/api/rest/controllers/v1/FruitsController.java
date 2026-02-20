@@ -72,6 +72,11 @@ public class FruitsController {
         return ResponseEntity.ok(fruits);
     }
 
+    @PostMapping("/cart")
+    public ResponseEntity<Void> cart() {
+        return ResponseEntity.ok().build();
+    }
+
     private Fruit mapToFruit(Object[] row) {
         return new Fruit(
                 (int) row[0],
