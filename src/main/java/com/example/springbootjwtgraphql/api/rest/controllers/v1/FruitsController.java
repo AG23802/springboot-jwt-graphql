@@ -2,6 +2,7 @@ package com.example.springbootjwtgraphql.api.rest.controllers.v1;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -73,8 +74,8 @@ public class FruitsController {
     }
 
     @PostMapping("/cart")
-    public ResponseEntity<Void> cart() {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Map<String, String>> cart() {
+        return ResponseEntity.ok(Map.of("status", "success"));
     }
 
     private Fruit mapToFruit(Object[] row) {

@@ -2,6 +2,7 @@ package com.example.springbootjwtgraphql.commons;
 
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -57,5 +58,22 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleRefreshTokenException(RefreshTokenException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(Map.of("error", ex.getMessage()));
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ErrorResponse> handleConflict(DataIntegrityViolationException ex) {
+        String message = "That username or email is already in use.";
+
+        // Optional: Check the error message for specific constraints
+        if (ex.getMessage().contains("users_username_unique")) {
+            message = "Username is already taken!";
+        } else if (ex.getMessage().contains("users_email_unique")) {
+            message = "Email is already registered!";
+        }
+
+        return new ResponseEntity<>(
+                new ErrorResponse(message, System.currentTimeMillis()),
+                HttpStatus.CONFLICT // 409 Conflict is the correct status for duplicates
+        );
     }
 }
