@@ -1,12 +1,10 @@
 package com.example.springbootjwtgraphql.api.rest.controllers.v1;
 
-import com.example.springbootjwtgraphql.api.rest.dto.RegisterRequest;
+import com.example.springbootjwtgraphql.api.rest.dto.UserResponse;
 import com.example.springbootjwtgraphql.domain.entities.User;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
-public interface UserMapper {
-
-    User toEntity(RegisterRequest request);
+public interface UserResponseMapper {
+    UserResponse toUserResponse(User user);
 }

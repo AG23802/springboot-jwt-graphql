@@ -1,5 +1,6 @@
 package com.example.springbootjwtgraphql.api.rest.controllers.v1;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -73,9 +74,18 @@ public class FruitsController {
         return ResponseEntity.ok(fruits);
     }
 
-    @PostMapping("/cart")
-    public ResponseEntity<Map<String, String>> cart() {
-        return ResponseEntity.ok(Map.of("status", "success"));
+    @PostMapping("/checkout")
+    public ResponseEntity<Map<String, String>> checkout(
+            Principal principal,
+            @RequestBody Map<String, Object> payload // 👈 This grabs your 'body'
+    ) {
+
+        System.out.println("Items in cart: " + payload.get("items"));
+
+        return ResponseEntity.ok(Map.of(
+                "status", "success",
+                "username", principal.getName()
+        ));
     }
 
     private Fruit mapToFruit(Object[] row) {
