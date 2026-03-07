@@ -14,7 +14,7 @@ public class CorsConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:4173", "http://localhost:5173", "https://my-react-app-ten-dusky.vercel.app"));
+        config.setAllowedOrigins(List.of("http://localhost:4173", "http://localhost:5173", "https://springboot-jwt-graphql.politeocean-288b8436.switzerlandnorth.azurecontainerapps.io/"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
