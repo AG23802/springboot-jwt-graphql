@@ -44,6 +44,8 @@ jobs:
           resourceGroup: springboot-jwt-graphql_group
           imageToBuild: default/[parameters('containerAppName')]:${{ github.sha }}
           _buildArgumentsKey_: |
-            _buildArgumentsValues_
+            BP_JVM_VERSION=21
+            BP_MAVEN_VERSION=3
+
 
 
