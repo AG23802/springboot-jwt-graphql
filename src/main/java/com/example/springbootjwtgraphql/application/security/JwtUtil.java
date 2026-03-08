@@ -24,7 +24,7 @@ public class JwtUtil {
     private final long expiration;
 
     // Use constructor injection for both properties
-    public JwtUtil(@Value("${jwt.secretKey}") String secretKey,
+    public JwtUtil(@Value("${jwt.secret-key}") String secretKey,
                    @Value("${jwt.expiration}") long expiration) {
         this.key = Keys.hmacShaKeyFor(Base64.getDecoder().decode(secretKey));
         this.expiration = expiration;
