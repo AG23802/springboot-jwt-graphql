@@ -3,10 +3,6 @@ app:
     allowed-origins:
       - "http://localhost:5173"
       - "http://localhost:4173"
-
-spring:
-  profiles:
-    active: dev
   main:
       banner-mode: "off"
   application:
