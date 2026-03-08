@@ -8,7 +8,7 @@ on:
       [ dev ]
     paths:
     - '**'
-    - '.github/workflows/ca-fruitly-dev-AutoDeployTrigger-08c3769c-7203-4753-92b6-6fa8b40aff53.yml'
+    - '.github/workflows/auto-deploy-dev.yml'
 
   # Allow manual trigger 
   workflow_dispatch:      
