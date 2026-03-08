@@ -11,38 +11,39 @@ spring:
         secret:
           property-sources:
             - endpoint: https://kv-fruitly.vault.azure.net/
-
   datasource:
     url: jdbc:postgresql://ep-divine-grass-a2mcujmz-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
-    username: ${spring-datasource-username} # Maps to KV secret
-    password: ${spring-datasource-password} # Maps to KV secret
+    username: neondb_owner
+    password: npg_ewg7bfMkFW8C
     driver-class-name: org.postgresql.Driver
-
-    # Hikari connection pool tuning
     hikari:
       maximum-pool-size: 10
       minimum-idle: 2
       idle-timeout: 30000
       connection-timeout: 30000
       max-lifetime: 1800000
-
   jpa:
     hibernate:
-      # For production, consider "validate" instead of "update"
       ddl-auto: update
-    show-sql: false        # set true if you want to debug queries
+    show-sql: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: false
 
-jwt:
-  secret-key: ${jwt-secret-key} # Maps to KV secret
-  # Access token expiration time in milliseconds (e.g., 1 day)
-  expiration: 86400000 
-  refreshExpirationMs: 604800000  # 7 days in milliseconds
+# This block MUST be aligned exactly like this
+app:
+  cors:
+    allowed-origins:
+      "http://localhost:5173, http://localhost:4173"
+  main:
+    banner-mode: "off"
 
-# Optional: logging configuration for Hibernate SQL
+jwt:
+  secret-key: dGhpcy1pcy1hLXNlY3JldC1rZXktZm9yLXZlcnktc2VjdXJlLWp3dC1hcHAtMjAyNQ==
+  expiration: 86400000
+  refreshExpirationMs: 604800000
+
 logging:
   level:
     root: ERROR
