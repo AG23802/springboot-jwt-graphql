@@ -13,8 +13,6 @@ spring:
     name: springboot-jwt-graphql
   graphql:
     path: /graphql
-    graphiql:
-      enabled: true
   cloud:
     azure:
       keyvault:
@@ -64,10 +62,3 @@ springdoc:
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui/index.html
-
-app:
-  cors:
-    cors:
-      allowed-origins:
-        - "http://localhost:5173"
-        - "http://localhost:4173"
