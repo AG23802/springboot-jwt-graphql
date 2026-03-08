@@ -2,7 +2,7 @@ spring:
   profiles:
     active: dev
   application:
-    name: springboot-jwt-graphql
+    name: fruitly-api
   graphql:
     path: /graphql
   cloud:
@@ -10,11 +10,11 @@ spring:
       keyvault:
         secret:
           property-sources:
-            - endpoint: https://kv-fruitly.vault.azure.net/
+            - endpoint: ${keyvault-endpoint}
   datasource:
-    url: jdbc:postgresql://ep-divine-grass-a2mcujmz-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
-    username: neondb_owner
-    password: npg_ewg7bfMkFW8C
+    url: ${spring-datasource-url} # Maps to EV
+    username: ${spring-datasource-username} # Maps to KV secret
+    password: ${spring-datasource-password} # Maps to KV secret
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
@@ -40,7 +40,7 @@ app:
     banner-mode: "off"
 
 jwt:
-  secret-key: dGhpcy1pcy1hLXNlY3JldC1rZXktZm9yLXZlcnktc2VjdXJlLWp3dC1hcHAtMjAyNQ==
+  secret-key: ${jwt-secret-key} # Maps to KV secret
   expiration: 86400000
   refreshExpirationMs: 604800000
 

@@ -20,10 +20,7 @@ public class EnvController {
     @GetMapping("/env")
     public Map<String, String> env() {
         
-        logger.info("INFO: Logging test to Application Insights");
-        logger.warn("WARN: Logging test to Application Insights");
-        logger.error("ERROR: Logging test to Application Insights");
-
+//        logger.info("INFO: Logging test to Application Insights");
         return Map.of("env", env);
     }
 }
