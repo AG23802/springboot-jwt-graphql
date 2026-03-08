@@ -1,6 +1,12 @@
 spring:
   profiles:
     active: prod
+  datasource:
+    username: neondb_owner
+    password: npg_ewg7bfMkFW8C
   graphql:
     graphiql:
-      enabled: false  # maybe disable GraphiQL in prod
+      enabled: true  # maybe disable GraphiQL in prod
+
+jwt:
+  secret-key: dGhpcy1pcy1hLXNlY3JldC1rZXktZm9yLXZlcnktc2VjdXJlLWp3dC1hcHAtMjAyNQ==
