@@ -1,41 +1,48 @@
-# Spring Boot JWT GraphQL
+# Fruitly (Cloud-Native API)
 
-This project is the secure backend API for a full-stack application. It is built using **Spring Boot** and **Java** and serves as a comprehensive example of a modern, professional API. The application provides a secure **GraphQL API** with **JWT authentication** and uses **JPA** to interact with a **PostgreSQL** database. It is fully containerized with **Docker** and includes a **CI/CD** pipeline to demonstrate a complete development workflow.
+This is a production-ready backend API built with **Spring Boot** and **Java**. It features a secure **GraphQL API**, **JWT Authentication**, and a fully automated **Azure Cloud** infrastructure.
 
 ---
 
-## Key Features
+## 🚀 Key Features
 
-### Secure Authentication & APIs
+### Secure API & Authentication
+* **GraphQL & REST:** Hybrid API design. **GraphQL** for flexible data fetching and **Versioned REST** (`/api/v1/`) for authentication and utility.
+* **JWT Security:** Stateless authentication using **Spring Security** and JSON Web Tokens, including **Refresh Token** flows.
+* **Self-Documenting:** Integrated **Swagger UI** and OpenAPI 3.0 for real-time API testing at `/swagger-ui/index.html`.
 
-- **JWT-based Authentication:** The API is secured using **Spring Security** to enforce authentication on all protected endpoints. This implementation uses **JSON Web Tokens (JWTs)**, which allows the application to be stateless and highly scalable. Each token is a self-contained unit that verifies the user's identity without requiring a database lookup for every request.
-- **GraphQL API:** This project leverages GraphQL to provide a flexible and efficient API layer. Unlike traditional REST, GraphQL allows the client to request exactly the data it needs, which reduces over-fetching and improves performance. The API includes both **queries** (to retrieve data) and **mutations** (to modify data).
-- **REST Endpoints + Swagger UI:** Alongside GraphQL, the project includes standard **REST APIs** for authentication and utility endpoints. These are fully documented and browsable through **Swagger UI**:
-  - Swagger UI: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)  
-  - OpenAPI Docs: [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs)
-- **API Versioning:** REST endpoints are versioned using a simple, scalable strategy. For example:
-  - `http://localhost:8080/api/v1/...`
-  - `http://localhost:8080/api/v2/...`  
-  This ensures backward compatibility as the API evolves and new versions are introduced.
-- **Token Management:** A complete authentication flow is implemented, from user login to **refresh token** generation. This allows the frontend to maintain a continuous, secure session without requiring the user to re-enter their credentials.
+### Data Architecture
+* **Persistence:** **Spring Data JPA** with **PostgreSQL** for robust, scalable data management.
+* **Advanced Querying:** Implementation of JPQL, Native SQL, and Stored Procedures to handle complex data requirements.
 
-### Data Management
+### Azure DevOps & Security
+* **CI/CD Pipeline:** Automated **GitHub Actions** using **OIDC** to build and deploy to **Azure Container Apps (ACA)**.
+* **Zero-Trust Identity:** Utilizes **Azure Managed Identity** to authenticate between services without hardcoded passwords.
 
-- **JPA and Spring Data JPA:** The application uses **JPA (Java Persistence API)** for Object-Relational Mapping (ORM), which simplifies database interactions. **Spring Data JPA** further streamlines this process by automatically generating repository methods, drastically reducing boilerplate code.
-- **PostgreSQL Database:** The backend is configured to connect to a **PostgreSQL** database, a popular choice for production environments due to its reliability and robustness.
-- **Complex Queries:** The project demonstrates proficiency with various query types, including standard JPA methods, JPQL, native SQL, and even stored procedures, showcasing a versatile approach to data retrieval.
+* **Secret Management:** **Azure Key Vault** integration via **Spring Cloud Azure** to externalize sensitive credentials (DB passwords, JWT keys).
+* **Infrastructure as Code:** Environment-aware configuration using **Spring Profiles** (`dev`/`prod`) and Azure Environment Variables.
 
-### DevOps
 
-- **Docker Integration:** The entire application is containerized with **Docker**. This ensures a consistent environment across development, testing, and production, eliminating "works on my machine" issues. The Dockerfile simplifies the build and deployment process.
-- **CI/CD Pipeline:** A **GitHub Actions** workflow is included to automate the build, test, and containerization processes every time code is pushed. This demonstrates a professional approach to continuous integration and continuous delivery.
-- **Spring Profiles (dev & prod):** The project includes multiple **Spring Boot profiles** to cleanly separate development and production environments:
-  - `application-dev.yml` → Local development (debug logging, H2/Postgres, hot reload).
-  - `application-prod.yml` → Production-ready settings (PostgreSQL, optimizations, security).  
-  Activate a profile with:
-  ```bash
-  # Development mode
-  ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
+---
 
-  # Production mode
-  ./mvnw spring-boot:run -Dspring-boot.run.profiles=prod
+## 🛠️ Tech Stack
+* **Language:** Java 17+ / Spring Boot 3.x
+* **API:** GraphQL, Spring Web, SpringDoc (Swagger)
+* **Security:** Spring Security, JWT
+* **Database:** PostgreSQL, Hibernate/JPA
+* **Cloud:** Azure Container Apps, Key Vault, Container Registry
+* **DevOps:** GitHub Actions, Cloud Native Buildpacks (No-Dockerfile deployment)
+
+---
+
+## 🏃 Quick Start
+
+### Profiles
+Activate a profile using the following commands:
+* **Development:** `./mvnw spring-boot:run -Dspring-boot.run.profiles=dev`
+* **Production:** `./mvnw spring-boot:run -Dspring-boot.run.profiles=prod`
+
+### Endpoints
+* **GraphQL Interface:** `/graphql`
+* **Swagger UI:** `/swagger-ui/index.html`
+* **OpenAPI Docs:** `/v3/api-docs`
