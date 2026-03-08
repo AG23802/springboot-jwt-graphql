@@ -5,7 +5,7 @@ on:
   # Automatically trigger it when detected changes in repo
   push:
     branches: 
-      [ main ]
+      [ dev ]
     paths:
     - '**'
     - '.github/workflows/ca-fruitly-dev-AutoDeployTrigger-8058c99e-6994-49f5-9cfa-43a1e6199677.yml'
@@ -45,5 +45,6 @@ jobs:
           imageToBuild: default/[parameters('containerAppName')]:${{ github.sha }}
           _buildArgumentsKey_: |
             _buildArgumentsValues_
+
 
 
