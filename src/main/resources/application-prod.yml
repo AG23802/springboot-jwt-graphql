@@ -1,6 +1,4 @@
 spring:
-  profiles:
-    active: prod
   datasource:
     username: neondb_owner
     password: npg_ewg7bfMkFW8C

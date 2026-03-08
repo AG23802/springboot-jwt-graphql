@@ -1,10 +1,6 @@
-app:
-  cors:
-    allowed-origins:
-      - "http://localhost:5173"
-      - "http://localhost:4173"
-  main:
-      banner-mode: "off"
+spring:
+  profiles:
+    active: dev
   application:
     name: springboot-jwt-graphql
   graphql:
