@@ -1,8 +1,10 @@
 spring:
+  datasource:
+    username: neondb_owner
+    password: npg_ewg7bfMkFW8C
   graphql:
     graphiql:
-      enabled: true
+      enabled: true  # maybe disable GraphiQL in prod
 
 jwt:
-  # can override dev-specific JWT key if needed
-  secretKey: dGhpcy1pcy1hLXNlY3JldC1rZXktZm9yLXZlcnktc2VjdXJlLWp3dC1hcHAtMjAyNQ==
+  secret-key: dGhpcy1pcy1hLXNlY3JldC1rZXktZm9yLXZlcnktc2VjdXJlLWp3dC1hcHAtMjAyNQ==
