@@ -31,11 +31,6 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: false
 
-# This block MUST be aligned exactly like this
-app:
-  cors:
-    allowed-origins:
-      "http://localhost:5173, http://localhost:4173"
   main:
     banner-mode: "off"
 
