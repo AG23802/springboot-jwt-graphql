@@ -1,5 +1,6 @@
 spring:
   datasource:
+    url: jdbc:postgresql://ep-divine-grass-a2mcujmz-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
     username: neondb_owner
     password: npg_ewg7bfMkFW8C
   graphql:
