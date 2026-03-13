@@ -1,10 +1,11 @@
 spring:
   datasource:
+    url: jdbc:postgresql://ep-divine-grass-a2mcujmz-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
     username: neondb_owner
     password: npg_ewg7bfMkFW8C
   graphql:
     graphiql:
-      enabled: true  # maybe disable GraphiQL in prod
+      enabled: false  # maybe disable GraphiQL in prod
 
 jwt:
   secret-key: dGhpcy1pcy1hLXNlY3JldC1rZXktZm9yLXZlcnktc2VjdXJlLWp3dC1hcHAtMjAyNQ==
