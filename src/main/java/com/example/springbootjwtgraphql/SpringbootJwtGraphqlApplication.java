@@ -1,6 +1,5 @@
 package com.example.springbootjwtgraphql;
 
-import com.microsoft.applicationinsights.attach.ApplicationInsights;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -8,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringbootJwtGraphqlApplication {
 
 	public static void main(String[] args) {
-		ApplicationInsights.attach();
 		SpringApplication.run(SpringbootJwtGraphqlApplication.class, args);
 
 				Thread t = new Thread(() -> {
